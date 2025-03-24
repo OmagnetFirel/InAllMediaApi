@@ -1,0 +1,13 @@
+package com.omagnect.inallmedia;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class InAllMediaApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(InAllMediaApplication.class, args);
+    }
+
+}

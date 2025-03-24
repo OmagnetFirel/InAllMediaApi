@@ -1,0 +1,33 @@
+type Query {
+    allProducts: [Product]
+    filterProductsByPrice(minPrice: Int!, maxPrice: Int!): [Product]
+    sortProducts(field: String!): [String]
+}
+
+type Mutation{
+    createProduct(input: ProductInput!): CreateProductPayload
+}
+
+type Product {
+    barcode: String!
+    item: String!
+    price: Int!
+    category: String
+    discount: Int
+    available: Int
+}
+
+input ProductInput {
+    barcode: String!
+    item: String!
+    category: String!
+    price: Int!
+    discount: Int!
+    available: Int!
+}
+
+type CreateProductPayload {
+    product: Product
+    success: Boolean!
+    errorMessage: String
+}
