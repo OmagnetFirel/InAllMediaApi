@@ -28,11 +28,9 @@ public class ProductService {
     }
 
     public List<String> sortProducts(String field){
-        return productRepository.findAllSortedBy(field)
+        return productRepository.findAllSortedByPrice()
                 .stream()
                 .map(Product::getItem)
-                .sorted()
-                .distinct()
                 .collect(Collectors.toList());
     }
 

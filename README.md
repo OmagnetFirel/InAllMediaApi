@@ -22,14 +22,14 @@ This project is a Spring Boot application that provides REST and GraphQL APIs fo
 ### Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/product-api.git
+git clone https://github.com/OmagnetFirel/InAllMediaApi
 cd product-api
 ````
 
 ### Build the project
 
 ```bash
-mvn clean package
+./gradlew clean build
 ```
 Run with Docker
 ```bash
@@ -85,7 +85,7 @@ Password: password
 --- 
 ### Running tests
 ```bash
-mvn test
+./gradlew test
 ```
 
 
@@ -94,3 +94,6 @@ Application configuration can be found in src/main/resources/application.yml.
 
 ### Docker
 The Dockerfile and docker-compose.yml are provided to containerize the application and its PostgreSQL database.
+```bash
+docker-compose up --build
+```

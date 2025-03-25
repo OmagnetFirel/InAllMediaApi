@@ -1,13 +1,12 @@
 package com.omagnect.inallmedia.resolver;
 
-import com.omagnect.inallmedia.model.CreateProductPayload;
+import com.omagnect.inallmedia.graphql.CreateProductPayload;
+import com.omagnect.inallmedia.graphql.ProductInput;
 import com.omagnect.inallmedia.model.Product;
 import com.omagnect.inallmedia.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -17,7 +16,6 @@ public class ProductResolver {
 
     private final ProductService productService;
 
-    @Autowired
     public ProductResolver(ProductService productService) {
         this.productService = productService;
     }
@@ -38,13 +36,20 @@ public class ProductResolver {
         return productService.sortProducts(field);
     }
 
-    @MutationMapping
-    public CreateProductPayload  createProduct(@Argument Product product) {
+    @MutationMapping("createProduct")
+    public CreateProductPayload  createProduct(@Argument("input") ProductInput product) {
         try{
-            productService.createProduct(product);
-            return new CreateProductPayload(product, true ,"Product created successfully");
+            Product newProduct = Product.builder()
+                    .item(product.getItem())
+                    .price(product.getPrice())
+                    .available(product.getAvailable())
+                    .barcode(product.getBarcode())
+                    .discount(product.getDiscount())
+                    .build();
+            productService.createProduct(newProduct);
+            return new CreateProductPayload(newProduct, true ,"Product created successfully");
         } catch (Exception e) {
-            return new CreateProductPayload(product, false,e.getMessage());
+            return new CreateProductPayload(null, false,e.getMessage());
         }
     }
 }

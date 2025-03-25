@@ -32,12 +32,12 @@ public class ProductServiceTest {
     @Test
     void sortProducts_shouldReturnSortedAndDistinctItems() {
         // Given
-        Product product1 = new Product("123", "BItem", "Category1", 150, 0, 10);
-        Product product2 = new Product("456", "AItem", "Category2", 50, 10, 20);
-        Product product3 = new Product("789", "CItem", "Category3", 250, 20, 30);
-        List<Product> products = Arrays.asList(product1, product2, product3);
+        Product product1 = new Product(1l,"123", "BItem", "Category1", 150.0, 0.0, 10);
+        Product product2 = new Product(2l,"456", "AItem", "Category2", 50.0, 10.0, 20);
+        Product product3 = new Product(3l,"789", "CItem", "Category3", 250.0, 20.0, 30);
+        List<Product> products = Arrays.asList(product2, product1, product3);
 
-        when(productRepository.findAllSortedBy("price")).thenReturn(products);
+        when(productRepository.findAllSortedByPrice()).thenReturn(products);
         // When
         List<String> result = productService.sortProducts("price");
 
@@ -48,7 +48,7 @@ public class ProductServiceTest {
     @Test
     void sortProducts_shouldHandleEmptyList() {
         // Given
-        when(productRepository.findAllSortedBy("price")).thenReturn(List.of());
+        when(productRepository.findAllSortedByPrice()).thenReturn(List.of());
 
         // When
         List<String> result = productService.sortProducts("price");
@@ -61,7 +61,7 @@ public class ProductServiceTest {
     @Test
     void createProduct_shouldSaveAndReturnProduct() {
         // Given
-        Product productToCreate = new Product("123", "NewItem", "NewCategory", 100, 0, 50);
+        Product productToCreate = new Product(1l, "123", "NewItem", "NewCategory", 100.0, 0.0, 50);
         when(productRepository.save(any(Product.class))).thenReturn(productToCreate);
 
         // When
